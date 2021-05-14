@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load wagtailpicture_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    {{ page.body|richtext }}
+
+    <div>{% image page.test_image width-800 alt="original" %}</div>
+    <div>{% image page.test_image width-800 format-webp-lossless alt="lossless" %}</div>
+    <div>{% image page.test_image width-800 format-webp alt="lossy default" %}</div>
+    <div>{% image page.test_image width-800 format-webp webpquality-70 alt="lossy 70" %}</div>
+
+    <h2>Picture</h2>
+
+    <div>
+      <h3>Vanilla</h3>
+
+      <picture>
+        {% image page.test_image width-782 format-webp as webp_image %}
+        <source srcset="{{ webp_image.url }}" type="image/webp">
+        {% image page.test_image width-783 alt="original" %}
+      </picture>
+
+      <h3>Template tag</h3>
+
+      {# {% picture_webp page.test_image width-783@768w alt="original" %} #}
+      {% webp_picture page.test_image width-784 alt="original" %}
+
+      {# {% webp_picture page.test_image width-800 width-400 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+    </div>
+
+    <div>
+      <picture>
+        {% image page.test_image width-792 format-webp as image_desktop_webp %}
+        {% image page.test_image width-392 format-webp as image_mobile_webp %}
+        <source
+            srcset="{{ image_desktop_webp.url }} 924w, {{ image_mobile_webp.url}} 688w"
+            sizes="(max-width: 768px) 688px, 924px"
+            type="image/webp"
+        >
+        {% image page.test_image width-793 as image_desktop_fallback %}
+        {% image page.test_image width-393 as image_mobile_fallback %}
+        <source
+            srcset="{{ image_desktop_fallback.url }} 924w, {{ image_mobile_fallback.url}} 688w"
+            sizes="(max-width: 768px) 688px, 924px"
+            type="image/png"
+        >
+        <img src="{{ image_desktop_fallback.url }}" alt="" />
+      </picture>
+    </div>
+{% endblock %}
