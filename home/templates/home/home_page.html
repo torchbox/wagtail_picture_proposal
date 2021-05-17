@@ -33,6 +33,23 @@
       {% webp_picture page.test_image width-784 alt="original" %}
 
       {# {% webp_picture page.test_image width-800 width-400 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+        
+        <picture>
+        {% image page.test_image width-800 format-webp as image_desktop_webp %}
+        {% image page.test_image width-400 format-webp as image_mobile_webp %}
+        <source
+          srcset="{{ image_desktop_webp.url }} {{ image_desktop_webp.width }}w, {{ image_mobile_webp.url}} {{ image_mobile_webp.width }}w"
+          sizes="(max-width: 600px) 480px, 800px"
+          type="image/webp"
+        >
+        {% image page.test_image width-800 as image_desktop_fallback %}
+        {% image page.test_image width-400 as image_mobile_fallback %}
+        <img
+          srcset="{{ image_desktop_fallback.url }} {{ image_desktop_fallback.width }}w, {{ image_mobile_fallback.url}} {{ image_mobile_fallback.width }}w"
+          sizes="(max-width: 600px) 480px, 800px"
+          src="{{ image_desktop_fallback.url }}" alt="original"
+        >
+      </picture>
     </div>
 
     <div>
