@@ -31,8 +31,15 @@
 
       {# {% picture_webp page.test_image width-783@768w alt="original" %} #}
       {% webp_picture page.test_image width-784 alt="original" %}
-
+        
+        
+        Proposed APIs:
+        
       {# {% webp_picture page.test_image width-800 width-400 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+      {# {% webp_picture page.test_image width-{400,800} sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+      {# {% webp_picture page.test_image width-1-400 width-1-800 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+        
+        Output:
         
         <picture>
         {% image page.test_image width-800 format-webp as image_desktop_webp %}
