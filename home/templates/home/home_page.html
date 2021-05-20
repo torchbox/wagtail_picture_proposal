@@ -30,10 +30,6 @@
       {% image page.test_image width-783 alt="original" %}
     </picture>
 
-    <h3>Template partial</h3>
-
-    {% include "includes/webp_picture.html" with img=page.test_image alt="original" resize_rule="width-782" %}
-
     <h3>Template tag</h3>
 
     {# {% picture_webp page.test_image width-783@768w alt="original" %} #}
