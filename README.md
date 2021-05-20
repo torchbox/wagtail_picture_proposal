@@ -2,7 +2,8 @@
 
 ## Try this out locally
 
-This project has been bootstrapped with `wagtail start`. Clone the repository, create a virtual environment, and,
+This project has been bootstrapped with `wagtail start`.
+Clone the repository, create a virtual environment, and,
 
 ```sh
 pip install -r requirements.txt
@@ -75,3 +76,10 @@ Art direction when changing focal points only:
 ```
 
 Art direction when changing the source image would require manually writing the `<picture>` tag markup.
+
+### Open questions
+
+1. What is the best template tag API for developers?
+2. Can we (how do we) use this new tag to query all needed renditions at once?
+3. Can we switch to generating signed dynamic image serve URLs? So the server only has to do DB operations to render the template, and image resizing operations only happen when images are loaded.
+4. What should the tag(s) be called, to help with support for future image formats?
