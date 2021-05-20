@@ -1,5 +1,20 @@
 # Wagtail `<picture>` support proposal
 
+## Try this out locally
+
+This project has been bootstrapped with `wagtail start`. Clone the repository, create a virtual environment, and,
+
+```sh
+pip install -r requirements.txt
+./manage.py migrate
+./manage.py createsuperuser
+./manage.py runserver
+```
+
+Go to the admin at `/admin/` and add an image on the homepage.
+
+## Proposal
+
 Currently Wagtail allows you to do this:
 
 ```html
@@ -16,7 +31,7 @@ This is straightforward enough to write for WebP and a fallback format, but can 
 {% webp_picture page.test_image width-782 alt="original" %}
 ```
 
-## Responsive images
+### Responsive images
 
 The complexity of writing this code manually becomes apparent for [responsive images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images), where we need to generate multiple renditions for different viewport widths. Here is the ideal output:
 
@@ -30,7 +45,7 @@ The complexity of writing this code manually becomes apparent for [responsive im
 
 Here are proposed APIs to generate this output.
 
-### Repeated resize rules
+#### Repeated resize rules
 
 Note how `width-800` is used twice, thereby generating two entries in `srcset` attributes.
 
@@ -40,7 +55,7 @@ The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr
 {% webp_picture page.test_image width-800 width-400 sizes="(max-width: 600px) 480px, 800px" alt="original" %}
 ```
 
-### New resize rules
+#### New resize rules
 
 We use a special `width-{800,400}` syntax, where each entry inside the curly brackets will create one entry in srcset.
 This syntax is inspired by shell expansion syntax.
@@ -51,7 +66,7 @@ The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr
 {% webp_picture page.test_image width-{800,400} sizes="(max-width: 600px) 480px, 800px" alt="original" %}
 ```
 
-## Art direction
+### Art direction
 
 Art direction when changing focal points only:
 
