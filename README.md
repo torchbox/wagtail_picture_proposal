@@ -50,3 +50,13 @@ The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr
 ```html
 {% webp_picture page.test_image width-{800,400} sizes="(max-width: 600px) 480px, 800px" alt="original" %}
 ```
+
+## Art direction
+
+Art direction when changing focal points only:
+
+```html
+{% webp_picture page.test_image fill-{800x600,400x300-c100} sizes="(max-width: 600px) 480px, 800px" alt="original" %}
+```
+
+Art direction when changing the source image would require manually writing the `<picture>` tag markup.
