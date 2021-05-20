@@ -1,5 +1,5 @@
 {% load wagtailimages_tags %}
-{# width- resize rules shouldn’t be hard-coded, but there is no way for us to do provide it via Django Templates’ include, so we have to pretend #}
+{# width- resize rules shouldn’t be hard-coded, but there is no way for us to provide it via Django Templates’ include, so we have to pretend #}
 <picture>
   {% image img width-792 format-webp as image_desktop_webp %}
   {% image img width-392 format-webp as image_mobile_webp %}
@@ -13,6 +13,7 @@
   <source
     srcset="{{ image_desktop_fallback.url }} {{ image_desktop_fallback.width }}w, {{ image_mobile_fallback.url}} {{ image_mobile_fallback.width }}w"
     sizes="{{ sizes }}"
+    {# This is very quick and dirty. In a template tag we should be able to use the actual file mime type. #}
     type="{% if img.file.name.lower|slice:"-3:" == "png" %}image/png{% else %}image/jpeg{% endif %}"
   >
   <img src="{{ image_desktop_fallback.url }}" width="{{ image_desktop_fallback.width }}" height="{{ image_desktop_fallback.height }}" alt="{{ alt }}" />
