@@ -11,71 +11,75 @@
 
     {{ page.body|richtext }}
 
-    <div>{% image page.test_image width-800 alt="original" %}</div>
-    <div>{% image page.test_image width-800 format-webp-lossless alt="lossless" %}</div>
-    <div>{% image page.test_image width-800 format-webp alt="lossy default" %}</div>
-    <div>{% image page.test_image width-800 format-webp webpquality-70 alt="lossy 70" %}</div>
+    <p>1</p>
+    {% image page.test_image width-800 alt="original" %}
+    <p>2</p>
+    {% image page.test_image width-800 format-webp-lossless alt="lossless" %}
+    <p>3</p>
+    {% image page.test_image width-800 format-webp alt="lossy default" %}
+    <p>4</p>
+    {% image page.test_image width-800 format-webp webpquality-70 alt="lossy 70" %}
 
     <h2>Picture</h2>
 
-    <div>
-      <h3>Vanilla</h3>
+    <h3>Vanilla</h3>
 
-      <picture>
-        {% image page.test_image width-782 format-webp as webp_image %}
-        <source srcset="{{ webp_image.url }}" type="image/webp">
-        {% image page.test_image width-783 alt="original" %}
-      </picture>
+    <picture>
+      {% image page.test_image width-782 format-webp as webp_image %}
+      <source srcset="{{ webp_image.url }}" type="image/webp">
+      {% image page.test_image width-783 alt="original" %}
+    </picture>
 
-      <h3>Template tag</h3>
+    <h3>Template partial</h3>
 
-      {# {% picture_webp page.test_image width-783@768w alt="original" %} #}
-      {% webp_picture page.test_image width-784 alt="original" %}
-        
-        
-        Proposed APIs:
-        
-      {# {% webp_picture page.test_image width-800 width-400 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
-      {# {% webp_picture page.test_image width-{400,800} sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
-      {# {% webp_picture page.test_image width-1-400 width-1-800 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
-        
-        Output:
-        
-        <picture>
-        {% image page.test_image width-800 format-webp as image_desktop_webp %}
-        {% image page.test_image width-400 format-webp as image_mobile_webp %}
-        <source
-          srcset="{{ image_desktop_webp.url }} {{ image_desktop_webp.width }}w, {{ image_mobile_webp.url}} {{ image_mobile_webp.width }}w"
-          sizes="(max-width: 600px) 480px, 800px"
+    {% include "includes/webp_picture.html" with img=page.test_image alt="original" resize_rule="width-782" %}
+
+    <h3>Template tag</h3>
+
+    {# {% picture_webp page.test_image width-783@768w alt="original" %} #}
+    {% webp_picture page.test_image width-784 alt="original" %}
+
+
+    <p>Proposed APIs:</p>
+
+    {# {% webp_picture page.test_image width-800 width-400 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+    {# {% webp_picture page.test_image width-{400,800} sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+    {# {% webp_picture page.test_image width-1-400 width-1-800 sizes="(max-width: 600px) 480px, 800px" alt="original" %} #}
+
+    <p>Output:</p>
+
+    <picture>
+      {% image page.test_image width-800 format-webp as image_desktop_webp %}
+      {% image page.test_image width-400 format-webp as image_mobile_webp %}
+      <source
+        srcset="{{ image_desktop_webp.url }} {{ image_desktop_webp.width }}w, {{ image_mobile_webp.url}} {{ image_mobile_webp.width }}w"
+        sizes="(max-width: 600px) 480px, 800px"
+        type="image/webp"
+      >
+      {% image page.test_image width-800 as image_desktop_fallback %}
+      {% image page.test_image width-400 as image_mobile_fallback %}
+      <img
+        srcset="{{ image_desktop_fallback.url }} {{ image_desktop_fallback.width }}w, {{ image_mobile_fallback.url}} {{ image_mobile_fallback.width }}w"
+        sizes="(max-width: 600px) 480px, 800px"
+        src="{{ image_desktop_fallback.url }}" alt="original"
+      >
+    </picture>
+
+    <picture>
+      {% image page.test_image width-792 format-webp as image_desktop_webp %}
+      {% image page.test_image width-392 format-webp as image_mobile_webp %}
+      <source
+          srcset="{{ image_desktop_webp.url }} 924w, {{ image_mobile_webp.url}} 688w"
+          sizes="(max-width: 768px) 688px, 924px"
           type="image/webp"
-        >
-        {% image page.test_image width-800 as image_desktop_fallback %}
-        {% image page.test_image width-400 as image_mobile_fallback %}
-        <img
-          srcset="{{ image_desktop_fallback.url }} {{ image_desktop_fallback.width }}w, {{ image_mobile_fallback.url}} {{ image_mobile_fallback.width }}w"
-          sizes="(max-width: 600px) 480px, 800px"
-          src="{{ image_desktop_fallback.url }}" alt="original"
-        >
-      </picture>
-    </div>
-
-    <div>
-      <picture>
-        {% image page.test_image width-792 format-webp as image_desktop_webp %}
-        {% image page.test_image width-392 format-webp as image_mobile_webp %}
-        <source
-            srcset="{{ image_desktop_webp.url }} 924w, {{ image_mobile_webp.url}} 688w"
-            sizes="(max-width: 768px) 688px, 924px"
-            type="image/webp"
-        >
-        {% image page.test_image width-793 as image_desktop_fallback %}
-        {% image page.test_image width-393 as image_mobile_fallback %}
-        <source
-            srcset="{{ image_desktop_fallback.url }} 924w, {{ image_mobile_fallback.url}} 688w"
-            sizes="(max-width: 768px) 688px, 924px"
-            type="image/png"
-        >
-        <img src="{{ image_desktop_fallback.url }}" alt="" />
-      </picture>
-    </div>
+      >
+      {% image page.test_image width-793 as image_desktop_fallback %}
+      {% image page.test_image width-393 as image_mobile_fallback %}
+      <source
+          srcset="{{ image_desktop_fallback.url }} 924w, {{ image_mobile_fallback.url}} 688w"
+          sizes="(max-width: 768px) 688px, 924px"
+          type="image/png"
+      >
+      <img src="{{ image_desktop_fallback.url }}" alt="" />
+    </picture>
 {% endblock %}
