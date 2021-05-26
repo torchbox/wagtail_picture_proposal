@@ -1,5 +1,11 @@
 # Wagtail `<picture>` support proposal
 
+This is an early-stage proposal for Wagtail: [Create a tag for the picture element + support for responsive image sets #285](https://github.com/wagtail/wagtail/issues/285)
+
+Draft proposal: see below, and [#2](https://github.com/torchbox/wagtail_picture_proposal/pull/2).
+
+--
+
 ## Try this out locally
 
 This project has been bootstrapped with `wagtail start`.
@@ -77,9 +83,18 @@ Art direction when changing focal points only:
 
 Art direction when changing the source image would require manually writing the `<picture>` tag markup.
 
-### Open questions
+## Open questions
 
 1. What is the best template tag API for developers?
 2. Can we (how do we) use this new tag to query all needed renditions at once?
 3. Can we switch to generating signed dynamic image serve URLs? So the server only has to do DB operations to render the template, and image resizing operations only happen when images are loaded.
 4. What should the tag(s) be called, to help with support for future image formats?
+
+## References
+
+- Wagtail: [Create a tag for the picture element + support for responsive image sets #285](https://github.com/wagtail/wagtail/issues/285)
+- Wagtail: [Allow images to be generated without width and height attributes #5289](https://github.com/wagtail/wagtail/issues/5289)
+- Willow: [[WIP] Image optimisation operations #69](https://github.com/wagtail/Willow/pull/69) 
+- <https://github.com/ephes/wagtail_srcset> 
+- <https://github.com/ptrck/wagtail-lazyimages> 
+- wp_image tag from Andy: <https://gist.github.com/thibaudcolas/3c6b9c354e7d636f08133f93b65e7978>
