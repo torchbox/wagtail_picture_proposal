@@ -1,0 +1,8 @@
+{% load wagtailimages_tags %}
+{# width-782 shouldn’t be hard-coded, but there is no way for us to do provide it via Django Templates’ include, so we have to pretend #}
+<picture>
+  {% image img format-webp width-782 as webp_image %}
+  <source srcset="{{ webp_image.url }}" type="image/webp">
+  {% image img width-782 alt=alt %}
+</picture>
+
