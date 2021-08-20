@@ -11,6 +11,7 @@ from wagtail.images.templatetags.wagtailimages_tags import (
 
 register = template.Library()
 
+
 @register.tag(name="webp_picture")
 def webp_picture(parser, token):
     """
@@ -27,7 +28,7 @@ def webp_picture(parser, token):
     settings.WAGTAILIMAGES_WEBP_QUALITY. To generate a lossless WebP rendition
     instead, add 'q-100' or 'quality-100' to the tag like so:
     {% webp_picture page.photo width-400 q-100 %}
-    The <img> element still recieves the alt text attribute and any other attribute
+    The <img> element still receives the alt text attribute and any other attribute
     overrides provided to the tag. e.g.:
     {% webp_picture page.photo width-400 class="foo" id="bar" %}
     If the source image is a webp image, a PNG will be generated from it to use

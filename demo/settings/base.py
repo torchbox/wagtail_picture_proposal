@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     'home',
-    'wagtail_picture',
+    'wagtail_picture_proposal',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -157,6 +157,13 @@ USE_L10N = True
 USE_TZ = True
 
 
+MY_AWESOME_RENDITION1 = "width-500"
+MY_AWESOME_RENDITION2 = "width-500"
+MY_AWESOME_RENDITION3 = "width-500"
+MY_AWESOME_RENDITION4 = "width-500"
+MY_AWESOME_RENDITION5 = "width-500"
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -188,3 +195,11 @@ WAGTAIL_SITE_NAME = "demo"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+
+
+
+WAGTAIL_PICTURE_PROPOSAL_NAMED_FILTERS = {
+    "potato-9000": "fill-90x100",
+}
+

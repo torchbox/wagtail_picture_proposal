@@ -20,3 +20,8 @@ class HomePage(Page):
         FieldPanel('body', classname="full"),
         ImageChooserPanel('test_image'),
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["test_image_renditions"] = "width-{302,402,502}"
+        return context

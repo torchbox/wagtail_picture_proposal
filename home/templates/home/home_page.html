@@ -2,23 +2,79 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% load wagtailpicture_tags %}
+{% load wagtailpictureproposal_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
+    <style>
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
     <h1>{{ page.title }}</h1>
+
+    <h2>image</h2>
+
+    {% image page.test_image width-1024 loading="lazy" %}
+
+    {% webp_picture_wip page.test_image width-{320,480,640,768,1024} q-60 loading="lazy" sizes="100vw" %}
+
+    {# {% comment %} #}
+    <h2>webp_picture_wip</h2>
+
+    <h3>Brace expansion for srcset attribute.</h3>
+    {% webp_picture_wip page.test_image width-{500,600,800} loading="lazy" alt="original" sizes="(max-width: 600px) 480px, 800px" %}
+
+    <h2>img_srcset_wip</h2>
+
+    <h3>Brace expansion for srcset attribute.</h3>
+    {% img_srcset_wip page.test_image width-{500,600,800} loading="lazy" alt="original" sizes="(max-width: 600px) 480px, 800px" %}
+
+    <h3>Named renditions.</h3>
+    {% img_srcset_wip page.test_image potato-9000 loading="lazy" %}
+
+    <h3>Renditions from variable.</h3>
+    {% img_srcset_wip page.test_image test_image_renditions loading="lazy" %}
+
+    <h3>Brace expansion with `as output_var` syntax to retrieve list.</h3>
+    {% img_srcset_wip page.test_image width-{200,400,600} as srcset %}
+
+    <style>
+      #test-bg-image {
+        min-height: 300px;
+        background-repeat: no-repeat;
+        background: url('{{ srcset.0.url }}');
+      }
+      @media screen and (min-width: 601px) {
+        #test-bg-image {
+          background: url('{{ srcset.1.url }}');
+        }
+      }
+      @media screen and (min-width: 801px) {
+        #test-bg-image {
+          background: url('{{ srcset.2.url }}');
+        }
+      }
+    </style>
+    <div id="test-bg-image">
+      <p>test background image</p>
+    </div>
 
     {{ page.body|richtext }}
 
+    {% comment %}
+
     <p>1</p>
-    {% image page.test_image width-800 alt="original" %}
+    {% image page.test_image width-800 alt="original" loading="lazy" %}
     <p>2</p>
-    {% image page.test_image width-800 format-webp-lossless alt="lossless" %}
+    {% image page.test_image width-800 format-webp-lossless alt="lossless" loading="lazy" %}
     <p>3</p>
-    {% image page.test_image width-800 format-webp alt="lossy default" %}
+    {% image page.test_image width-800 format-webp alt="lossy default" loading="lazy" %}
     <p>4</p>
-    {% image page.test_image width-800 format-webp webpquality-70 alt="lossy 70" %}
+    {% image page.test_image width-800 format-webp webpquality-70 alt="lossy 70" loading="lazy" %}
 
     <h2>Picture</h2>
 
@@ -70,4 +126,5 @@
 
     {# resize_rule does nothing, it’s just there as an illustration #}
     {% include "responsive_picture.html" with img=page.test_image alt="original" sizes="(max-width: 768px) 688px, 924px" resize_rule="width-792 width-392" %}
+    {% endcomment %}
 {% endblock %}
