@@ -44,6 +44,7 @@ View more examples in [home_page.html](https://github.com/torchbox/wagtail_pictu
 - <https://gist.github.com/coredumperror/41f9f8fe511ac4e88547487d6d43c69b>
 - <https://github.com/ephes/wagtail_srcset>
 - <https://github.com/ptrck/wagtail-lazyimages>
+- <https://github.com/jams2/wagtail-responsive-images>
 - <https://pypi.org/project/easy-thumbnails/>
 - <https://nextjs.org/docs/api-reference/next/image>
 - <https://www.gatsbyjs.com/plugins/gatsby-plugin-image>
