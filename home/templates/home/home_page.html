@@ -63,6 +63,54 @@
       <p>test background image</p>
     </div>
 
+    <h3>Brace expansion with `as output_var` syntax to retrieve WebP images.</h3>
+    {% webp_picture_wip page.test_image width-{203,403,603} q-63 as webp_picture %}
+
+    <style>
+      #test-bg-image-webp {
+        min-height: 300px;
+        background-repeat: no-repeat;
+        background: url('{{ webp_picture.fallback_source.0.url }}');
+        background: image-set(
+          url('{{ webp_picture.webp_source.0.url }}') type('image/webp'),
+          url('{{ webp_picture.fallback_source.0.url }}') type('{{ fallback_mime }}'),
+        );
+        background: -webkit-image-set(
+          url('{{ webp_picture.webp_source.0.url }}') type('image/webp'),
+          url('{{ webp_picture.fallback_source.0.url }}') type('{{ fallback_mime }}'),
+        );
+      }
+      @media screen and (min-width: 601px) {
+        #test-bg-image-webp {
+          background: url('{{ webp_picture.fallback_source.1.url }}');
+          background: image-set(
+            url('{{ webp_picture.webp_source.1.url }}') type('image/webp'),
+            url('{{ webp_picture.fallback_source.1.url }}') type('{{ fallback_mime }}'),
+          );
+          background: -webkit-image-set(
+            url('{{ webp_picture.webp_source.1.url }}') type('image/webp'),
+            url('{{ webp_picture.fallback_source.1.url }}') type('{{ fallback_mime }}'),
+          );
+        }
+      }
+      @media screen and (min-width: 801px) {
+        #test-bg-image-webp {
+          background: url('{{ webp_picture.fallback_source.2.url }}');
+          background: image-set(
+            url('{{ webp_picture.webp_source.2.url }}') type('image/webp'),
+            url('{{ webp_picture.fallback_source.2.url }}') type('{{ fallback_mime }}'),
+          );
+          background: -webkit-image-set(
+            url('{{ webp_picture.webp_source.2.url }}') type('image/webp'),
+            url('{{ webp_picture.fallback_source.2.url }}') type('{{ fallback_mime }}'),
+          );
+        }
+      }
+    </style>
+    <div id="test-bg-image-webp">
+      <p>test background WebP image</p>
+    </div>
+
     {{ page.body|richtext }}
 
     {% comment %}
