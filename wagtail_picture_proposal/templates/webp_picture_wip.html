@@ -1,0 +1,21 @@
+{# Placement of template syntax done to maximise readability of output HTML. #}
+<picture>
+  <source
+    srcset="{% for rendition in webp_source %}
+        {{ rendition.url }} {{ rendition.width }}w{% if not forloop.last %},{% endif %}{% endfor %}"
+    type="image/webp"{% if sizes %}
+    sizes="{{ sizes }}"{% endif %}
+  >
+  <source
+    srcset="{% for rendition in fallback_source %}
+        {{ rendition.url }} {{ rendition.width }}w{% if not forloop.last %},{% endif %}{% endfor %}"
+    type="{{ fallback_mime }}"{% if sizes %}
+    sizes="{{ sizes }}"{% endif %}
+  >
+  <img
+    src="{{ fallback.url }}"
+    width="{{ fallback.width }}"
+    height="{{ fallback.height }}"{% for name, value in attributes.items %}
+    {{ name }}="{{ value }}"{% endfor %}
+  >
+</picture>

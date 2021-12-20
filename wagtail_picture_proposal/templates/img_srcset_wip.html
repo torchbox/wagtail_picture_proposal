@@ -1,0 +1,9 @@
+{# Placement of template syntax done to maximise readability of output HTML. #}
+<img
+  {% if fallback_renditions|length > 1 %}srcset="{% for rendition in fallback_renditions %}
+      {{ rendition.url }} {{ rendition.width }}w{% if not forloop.last %},{% endif %}{% endfor %}"{% endif %}
+  src="{{ fallback_renditions.0.url }}"
+  width="{{ fallback_renditions.0.width }}"
+  height="{{ fallback_renditions.0.height }}"{% for name, value in attributes.items %}
+  {{ name }}="{{ value }}"{% endfor %}
+>
