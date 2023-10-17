@@ -1,5 +1,7 @@
 # Wagtail [RFC 71: support for responsive images](https://github.com/wagtail/rfcs/pull/71)
 
+👉 this is now implemented [in Wagtail 5.2](https://docs.wagtail.org/en/latest/releases/5.2.html#responsive-multi-format-images-with-the-picture-tag).
+
 This is a prototype implementation of [RFC 71: support for responsive images](https://github.com/wagtail/rfcs/pull/71). Join the discussion in [#lean-images on the Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack).
 
 --
